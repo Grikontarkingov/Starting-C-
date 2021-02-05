@@ -1,0 +1,1 @@
+const int g = 5, h = 6, i = 7, j = 8;
