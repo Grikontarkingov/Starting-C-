@@ -1,9 +1,9 @@
 #include <iostream>
 
 #define ARRAYSIZE 5
-#define CHECK(A,B) std::cout << (((A >= 0) && (B < A)) ? "Number is in the range!" : "Number isn't in the range!") << std::endl
-#define GETARRAYELEMENT(ARRAY,ARRAYINDEX) std::cout << "Your element: " << (*(ARRAY + ARRAYINDEX)) << std::endl
-#define GETAMOUNT(ARRAY,TYPE) (sizeof ARRAY / sizeof(TYPE))
+#define CHECK(A,B) std::cout << (((A) >= (0) && ((B) < (A))) ? "Number is in the range!" : "Number isn't in the range!") << std::endl
+#define GETARRAYELEMENT(ARRAY,ARRAYINDEXUPPER, ARRAYINDEXDOWNER) std::cout << "Your element: " << (*((*((ARRAY) + (ARRAYINDEXUPPER))) + (ARRAYINDEXDOWNER))) << std::endl
+#define GETAMOUNT(ARRAY,TYPE) (sizeof (ARRAY) / sizeof(TYPE))
 
 int main(int argc, char** argv){
 	// Описать макрокоманду, проверяющую, входит ли переданное ей число в диапазон от нуля
@@ -20,20 +20,23 @@ int main(int argc, char** argv){
 
 	// Описать макрокоманду, получающую доступ к элементу двумерного массива (организованного динамически)
 	// посредством разыменования указателей
-	int *array = new int[ARRAYSIZE]{4, 3, 2, 1, 0};
-	int index;
-
-	std::cout << "Enter array index: ";
-	std::cin >> index;
-
-	if((index >= 0) && (index < ARRAYSIZE)){
-		GETARRAYELEMENT(array,index);
+	int **arr = new int*[ARRAYSIZE];
+	for(int i = 0; i < ARRAYSIZE; i++){
+		arr[i] = new int[ARRAYSIZE] {4, 3, 2, 1, 0};
 	}
-	else{
-		std::cout << "You enter index out of range!" << std::endl;
-	}
+	
+	int indexUpper;
+	int indexDowner;
 
-	delete array;
+	std::cout << "Enter array indexUpper: ";
+	std::cin >> indexUpper;
+
+	std::cout << "Enter array indexDowner: ";
+	std::cin >> indexDowner;
+
+	GETARRAYELEMENT(arr, indexUpper, indexDowner);
+
+	delete arr;
 
 	// * Описать макрокоманду, возвращающую количество элементов локального массива, принимающую на вход
 	// ссылку на массив и его тип
